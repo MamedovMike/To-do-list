@@ -1,0 +1,125 @@
+.box{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: #eeeeee;
+    border-radius: 20px;
+    border: inset;
+    border: dashed;
+    width: 850px;
+    position: relative;
+    left: 336px;
+    box-shadow: 4px -4px 20px 0px #8f952d;
+    margin-top: 50;
+    border-color: #2b929d;
+}
+.inside_box{
+    display: flex;
+        flex-direction: column;
+        align-items: flex-end;
+}
+.fav_button{
+    border: none;
+    background-color: #ffffff;
+    cursor: pointer;
+}
+.fav_button:hover{
+    background-color: rgb(255, 255, 196);
+}
+.tasks{
+    display: flex;
+    flex-direction: column;
+    margin-left: 100px;
+}
+.delete_button{
+    margin-left: 5;
+    border: none;
+    background-color: #fe5858;
+    color: white;
+    border-radius: 20%;
+    cursor: pointer;
+}
+.h1{
+    margin-left: 27%;
+    font-family: courier new;
+    width: 100%;
+    color: #5f5959;
+}
+.add{
+    border: none; 
+    background-color: #fffac9; 
+    border-radius: 10px; 
+    width: 170px; 
+    cursor: pointer;
+}
+.add:hover{
+    background-color: bisque;
+}
+.add:active{
+    transform: translateY(5px);
+}
+.tasks-item{
+    display: flex;
+    margin-left: 25px;
+    gap: 10px;
+    align-items: flex-start;
+}
+.edit:hover{
+    background-color: rgb(209, 209, 209);
+}
+.delete_button:hover{
+    background-color: rgb(199, 105, 105);
+}
+.sign_in_up{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-left: 70;
+}
+.sign_up{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.sign_in{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.title input{
+    background-color: #f2f2f2;
+    border-radius: 40px;
+    height: 25px;
+    FONT-FAMILY: cursive;
+}
+.descr input{
+    background-color: #f2f2f2;
+    border-radius: 40px;
+    height: 25px;
+    FONT-FAMILY: cursive;
+}
+.priority{
+    border-radius: 20px;
+    background-color: #f2f2f2;
+    cursor: pointer;
+    border: groove;
+}
+.choose_button{
+    border-radius: 20px;
+    cursor: pointer;
+    border: groove;
+}
+.priority:hover{
+    background-color: rgb(158, 158, 158);
+}
+.choose_button:hover{
+    background-color: rgb(158, 158, 158);
+}
+.title{
+    font-family: courier new;
+    font-size: 20px;
+}
+.descr{
+    font-family: courier new;
+    font-size: 20px;
+}
