@@ -10,31 +10,47 @@ $task  = new Database('MySQL-8.2', 'root', '', 'users_to_do_list');
 $tasks = $task->getUserTasks($user_id);
 
 
-$userName = $task->getUserName();
+
+$userData = $task->getUserNameAndAvatar();
+if(isset($userData)){
+    $userName   = $userData['user_name'];
+    $avatarPath = $userData['avatar'];
+}
 
 if(!empty($_GET['title']) && !empty($_GET['content'])){
     $a = $_GET['id'];
     $b = $_GET['title'];
     $c = $_GET['content'];
-    $task->updateUserTask($a, $b, $c);
+    $d = $_GET['priority'];
+    $task->updateUserTask($a, $b, $c, $d);
     header('Location: own_user_tasks.php');
 }
 ?>
-
-<h3>Welcome<?if($userName):?> <?=$userName?> <?endif;?>!</h3>
+<link rel="stylesheet" href="styles/style.css">
+<body class="xxx">
+    
+<div class="user_user"><img src="<?=$avatarPath?>" class="avatar"><h2 class="user_name_name"><?=$userName?></h2></div>
 
 <title>To do list</title>
-<div class="box">
+<div class="task_input">
     <form action="user_page_scripts/user_add.php" method="POST">
         <h1 class="h1">To do list</h1>
-        <div class="inside_box">
-            <div>Title: <input type="text" name="title"></div><br>
-            <div>Description: <input type="text" name="content"></div><br>
-            <div><input class="add" type="submit" value="Add"></div>
-            <link rel="stylesheet" href="styles/style.css">
-        </div>
-        </form>
+            <div><input type="text" name="title" placeholder="Title" class="username"></div><br>
+            <div><input type="text" name="content"placeholder="Description" class="username"></div><br>
+                <select name="priority" class="username">
+                    <option value="">Choose a priority of task</option>
+                    <option value="high">High</option>
+                    <option value="medium">Middle</option>
+                    <option value="low">Low</option>
+                </select>
+            <input type="hidden" name="prior_id" value="<?php echo $item['id']; ?>">
+            <div class="add_btn"><input class="add" type="submit" value="Add"></div>
+    </form>
+</div>       
+        
+        
     <div class="tasks">
+        <h2 class="h1-tasks">Your Tasks</h2>
         <?php foreach($tasks as $item): ?>
             <div class="tasks-item">
             <? if($item['priority'] == 'high'): ?>
@@ -59,7 +75,7 @@ if(!empty($_GET['title']) && !empty($_GET['content'])){
                 </form>
                 
                 <?=$item['title']; ?> - <?=$item['content'];?>
-                <a href="user_page_scripts/user_edit.php?id=<? echo $item['id'];?>&title=<?=$item['title'];?>&content=<?=$item['content'];?>" class="edit">
+                <a href="user_page_scripts/user_edit.php?id=<? echo $item['id'];?>&title=<?=$item['title'];?>&content=<?=$item['content'];?>&priority=<?=$item['priority'];?>" class="edit">
                 <img src="pics/edit.png" style="height: 1rem;">
                 </a>
                 
@@ -67,19 +83,14 @@ if(!empty($_GET['title']) && !empty($_GET['content'])){
                     <input type="hidden" name="id" value="<?php echo $item['id']; ?>">
                     <button type="submit" class="delete_button" name="delete_button">X</button>
                 </form>
-
-                <form action="user_page_scripts/user_priority.php" method="POST">
-                    <select name="priority">
-                        <option value="">-- Choose a priority of task --</option>
-                        <option value="high">High</option>
-                        <option value="medium">Middle</option>
-                        <option value="low">Low</option>
-                    </select>
-                    <input type="hidden" name="prior_id" value="<?php echo $item['id']; ?>">
-                    <button type="submit">Choose</button>
-                </form>
             </div>
         <?php endforeach; ?>
     </div>
-</div>
-<a href="index.php"> На главную страницу</a>
+    <div class="navbar-down">
+        <ul>
+            <li><a href="#">Поддержать проект</a></li>
+            <li><a href="#">Связаться с нами</a></li>
+            <li><a href="#">Наши соц. сети:</a></li>
+        </ul>
+    </div>
+</body>

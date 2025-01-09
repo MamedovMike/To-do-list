@@ -95,8 +95,8 @@ class Database{
     // Методы ниже относятся к пользователям. Нет впринципе никаких отличий от методов выше
 
 
-    public function insertUserTask($user_title, $user_content, $user_id){
-        $sql = "INSERT INTO tasks (title, content, user_id) VALUES('$user_title', '$user_content', '$user_id')";
+    public function insertUserTask($user_title, $user_content, $user_id, $priority){
+        $sql = "INSERT INTO tasks (title, content, user_id, priority) VALUES('$user_title', '$user_content', '$user_id', '$priority')";
         $this->conn_obj->query($sql);
     }
 
@@ -105,15 +105,15 @@ class Database{
         $this->conn_obj->query($sql);
     }
 
-    public function updateUserTask($task_id, $user_title, $user_content){
-        $sql = "UPDATE tasks SET title = '$user_title', content = '$user_content' WHERE id = " . $task_id;
+    public function updateUserTask($task_id, $user_title, $user_content, $priority){
+        $sql = "UPDATE tasks SET title = '$user_title', content = '$user_content', priority = '$priority' WHERE id = " . $task_id;
         $this->conn_obj->query($sql);
     }
 
-    public function addUserTaskPriority($task_id, $task_priority){
-        $sql = "UPDATE tasks SET priority = '$task_priority' WHERE id = '$task_id'";
-        $this->conn_obj->query($sql);
-    }
+    // public function addUserTaskPriority($task_priority){
+    //     $sql = "UPDATE tasks SET priority = '$task_priority'";
+    //     $this->conn_obj->query($sql);
+    // }
 
     public function deleteUserTask($task_id){
         $sql = "DELETE FROM tasks WHERE id = " . $task_id;
@@ -162,8 +162,8 @@ class Database{
     // Методы ниже нужны для авторизации и регистрации пользователей
 
     // Метод для добавления пользователей в БД(регистрация)
-    public function addUser($email, $username, $password){
-        $sql = "INSERT INTO users (user_name, email, password) VALUES('$username', '$email', '$password')";
+    public function addUser($email, $username, $password, $avatar){
+        $sql = "INSERT INTO users (user_name, email, password, avatar) VALUES('$username', '$email', '$password', '$avatar')";
         $this->conn_obj->query($sql);
         $user_id = $this->conn_obj->insert_id;
         session_start();
@@ -171,14 +171,17 @@ class Database{
     }
 
     // Метод для показа имени пользователя. Сделан для красоты
-    public function getUserName(){
+    public function getUserNameAndAvatar(){
         session_start();
         $user_id = $_SESSION['user_id']; 
-        $sql = "SELECT user_name FROM users WHERE id = '$user_id'";
+        $sql = "SELECT user_name, avatar FROM users WHERE id = '$user_id'";
         $raw = $this->conn_obj->query($sql);
 
     if($row = $raw->fetch_assoc()) {
-        return $row['user_name'];
+        return [
+            'user_name' => $row['user_name'],
+            'avatar'    => $row['avatar']
+        ]; 
     }
 
     return null;

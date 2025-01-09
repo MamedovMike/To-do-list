@@ -3,19 +3,28 @@ require '../Database.php';
 $id = $_GET['id'];
 $title = $_GET['title'];
 $content = $_GET['content'];
+$priority = $_GET['priority'];
 ?>
-
-<link rel="stylesheet" href="../styles/style.css">
-
+<head>
+    <link rel="stylesheet" href="../styles/style.css">
+    <title>Edit - To Do List</title>
+</head>
+<body class="edit_page">
+    <h1 class="h1">To do list edit</h1>
 <div class="box">
     <form action="../own_user_tasks.php" method="GET">
-        <h1 class="h1">To do list edit</h1>
         <div class="inside_box">
-            <div>ID: <input type="text" value=<?echo $id;?> disabled style="border: none; background-color: white; color: #000000;"></div><br>
-            <div>Title: <input type="text" name="title" value="<? echo $title;?>"></div><br>
-            <div>Description: <input type="text" name="content" value="<? echo $content;?>"></div><br>
-            <div><input class="add" type="submit" value="Edit"></div>
+            <div><input type="text" name="title" value="<? echo $title;?>" class="username"></div><br>
+            <div><input type="text" name="content" value="<? echo $content;?>" class="username"></div><br>
+            <select name="priority" class="username">
+                <option value="">Choose a priority of task</option>
+                <option value="high">High</option>
+                <option value="medium">Middle</option>
+                <option value="low">Low</option>
+            </select>
+            <div class="add_btn_edit"><input class="add" type="submit" value="Edit"></div>
             <input type="hidden" value="<?php echo $id;?>" name="id">
         </div>
-        </form>
+    </form>
 </div>
+</body>
